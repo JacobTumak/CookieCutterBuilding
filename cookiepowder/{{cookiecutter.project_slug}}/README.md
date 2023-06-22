@@ -1,5 +1,4 @@
 {% set is_open_source = cookiecutter.open_source_license != 'Not open source' -%}
-{% for _ in cookiecutter.project_name %}={% endfor %}
 {{ cookiecutter.project_name }}
 {% for _ in cookiecutter.project_name %}={% endfor %}
 
@@ -31,7 +30,5 @@ Features
 Credits
 -------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+[//]: # (TODO: change credits?)
+This package was created with Cookiecutter and the [`audreyr/cookiecutter`](https://github.com/audreyr/cookiecutter) project template.
