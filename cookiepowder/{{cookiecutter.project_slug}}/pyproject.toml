@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools", "wheel", "twine"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -49,14 +49,11 @@ cli = ['{{cookiecutter.command_line_interface}}']
 {% endif %}
 dev = [
     'bumpver >= 2023.1124',
-    'wheel >= 0.40.0',
-    'watchdog >= 3.0.0', # TODO: Is this necessary or worth keeping?
     'tox >= 4.5.1',
     'coverage >= 7.2.7', # TODO: Is this necessary or worth keeping?
-    'twine >= 4.0.2',
+    'twine >= 4.0.2', # TODO: Remove this?
     'build >= 0.10.0',
     {% if cookiecutter.use_pytest == 'y' -%}'pytest >= 7.3.2',{% endif %}
-    {% if cookiecutter.use_black == 'y' -%}'black >= 21.7b0',{% endif %}
     ]
 docs = [
     'sphinx >= 7.0.1',
@@ -70,62 +67,6 @@ Repository = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecut
 
 [project.scripts]
 "manage.py" = "{{cookiecutter.project_slug}}:django_manage"
-
-
-# ==== mypy ====
-[tool.mypy]
-python_version = '{{cookiecutter.python_version}}'
-check_untyped_defs = true
-ignore_missing_imports = true
-warn_unused_ignores = true
-warn_redundant_casts = true
-warn_unused_configs = true
-# plugins = []
-
-[[tool.mypy.overrides]]
-# Django migrations should not produce any errors:
-module = "*.migrations.*"
-ignore_errors = true
-
-[tool.django-stubs]
-django_settings_module = "config.settings.test"
-
-
-# ==== Coverage ====
-[tool.coverage.run]
-include = ["{{cookiecutter.project_slug}}/**"]
-omit = ["*/migrations/*", "*/tests/*"]
-plugins = ["django_coverage_plugin"]
-
-
-# ==== PyLint ====
-[tool.pylint.MASTER]
-load-plugins = [
-    "pylint_django",
-]
-django-settings-module = "config.settings.local"
-
-[tool.pylint.FORMAT]
-max-line-length = 119
-
-[tool.pylint."MESSAGES CONTROL"]
-disable = [
-    "missing-docstring",
-    "invalid-name",
-]
-
-[tool.pylint.DESIGN]
-max-parents = 13
-
-[tool.pylint.TYPECHECK]
-generated-members = [
-    "REQUEST",
-    "acl_users",
-    "aq_parent",
-    "[a-zA-Z]+_set{1,2}",
-    "save",
-    "delete",
-]
 
 
 

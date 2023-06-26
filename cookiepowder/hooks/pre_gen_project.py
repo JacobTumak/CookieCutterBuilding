@@ -1,5 +1,8 @@
 import re
 import sys
+import os
+
+# if os.path.exists() # TODO: add functionality to find and (optionally) auto-delete pre-installed django files
 
 
 MODULE_REGEX = r'^[_a-zA-Z][_a-zA-Z0-9]+$'
