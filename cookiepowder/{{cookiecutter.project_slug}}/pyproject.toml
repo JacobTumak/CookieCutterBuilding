@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel", "twine"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = '{{cookiecutter.project_name}}'
+name = '{{cookiecutter.project_name | replace(' ', '_')}}'
 version = '{{cookiecutter.version}}'
 description = "{{ cookiecutter.project_short_description }}"
 readme = "README.md"
@@ -28,36 +28,39 @@ license = {text = "GNU General Public License v3"}
 license = {text = "Proprietary"}
 {% endif %}
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
     "License :: {% if cookiecutter.open_source_license != 'Not open source' -%} OSI Approved :: {% endif %} {{cookiecutter.open_source_license}}",
-    {% if '{{cookiecutter.framework}}' != 'None' -%}"Framework :: {{cookiecutter.framework}}"{% endif %},
+    "Framework :: Django",
 ]
 requires-python = '{{cookiecutter.python_version}}'
 
-[project.dependencies]
-docs = [
+dependencies = [
     'django >= 2.0',
     'asgiref ~= 3.7.2',
     'sqlparse ~= 0.4.4',
     'typing-extensions ~= 4.6.3',
+    'pip-tools ~= 6.13.0',
 ]
 
 [project.optional-dependencies]
-{% if cookiecutter.command_line_interface != 'No Cli'-%}
-cli = ['{{cookiecutter.command_line_interface}}']
-{% endif %}
 dev = [
     'bumpver >= 2023.1124',
-    'tox >= 4.5.1',
-    'coverage >= 7.2.7', # TODO: Is this necessary or worth keeping?
-    'twine >= 4.0.2', # TODO: Remove this?
+    'twine >= 4.0.2', # TODO: Remove this from dev dependencies?
     'build >= 0.10.0',
-    {% if cookiecutter.use_pytest == 'y' -%}'pytest >= 7.3.2',{% endif %}
+    'flake8 >= 6.0.0',
+    {% if cookiecutter.command_line_interface != 'No Cli'-%}'{{cookiecutter.command_line_interface}}',{% endif %}
     ]
 docs = [
     'sphinx >= 7.0.1',
     'myst-parser >= 2.0.0',
+]
+test = [
+    'pytest >= 7.3.2',
+    'pytest-cov >= 4.1.0',
+    'pytest-django >= 4.5.2',
+    'tox >= 4.5.1',
+    'coverage >= 7.2.7',
 ]
 
 
@@ -68,5 +71,6 @@ Repository = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecut
 [project.scripts]
 "manage.py" = "{{cookiecutter.project_slug}}:django_manage"
 
+[tool.flake8]
 
 
