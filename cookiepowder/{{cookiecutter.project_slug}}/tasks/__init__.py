@@ -1,6 +1,6 @@
 
 from invoke import Collection
 
-import run
+import docs
 
-ns = Collection(run)
+ns = Collection(docs)

@@ -9,12 +9,14 @@
 project = '{{cookiecutter.project_name}}'
 copyright = ""  # this value is written automatically from hooks/post_gen_project.py
 author = '{{cookiecutter.full_name}}'
+master_doc = 'index'
+source_suffix = ['.rst', '.md']
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'myst-parser',
+    'myst_parser',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
@@ -22,9 +24,7 @@ extensions = [
 ]
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv']
-
-
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv', '.tox']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

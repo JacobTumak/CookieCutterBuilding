@@ -11,6 +11,7 @@ PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 def remove_file(filepath):
     os.remove(os.path.join(PROJECT_DIRECTORY, filepath))
 
+
 def replace_var_val(file_path, var_name, new_var_val):
 
     with open(file_path, "r") as file:
@@ -24,6 +25,7 @@ def replace_var_val(file_path, var_name, new_var_val):
 
     with open(file_path, "w") as file:
         file.write(replaced_content)
+
 
 def get_py_ver():
     version_info = sys.version_info
@@ -43,11 +45,19 @@ if __name__ == '__main__':
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
 
-
-    filepath = "docs/sphinx/source/conf.py"
+    filepath = "docs/sphinx/conf.py"
     var_name = "copyright"
     new_val = f'{datetime.datetime.now().year}, {{cookiecutter.copyright_entity}}'
     replace_var_val(filepath, var_name, new_val)
 
-    # subprocess.run(['pip', 'install', '-r', 'requirements.txt'])
-    # subprocess.run(['pip', 'install', '-r', 'requirements_dev.txt'])
+    if '{{cookiecutter.generate_requirements_files}}'.lower() == 'y':
+        subprocess.run(['pip', 'install', 'pip-tools'])
+        subprocess.run(['pip-compile', '-o', 'requirements.txt', 'pyproject.toml', '--resolver=backtracking'])
+        subprocess.run(['pip-compile', '-o', 'dev_requirements.txt', 'pyproject.toml', '--resolver=backtracking', '--all-extras'])
+        subprocess.run(['pip', 'install', '-r', 'requirements.txt'])
+        subprocess.run(['pip', 'install', '-r', 'dev_requirements.txt'])
+
+    if '{{cookiecutter.generate_django_secret}}'.lower() == 'y':
+        subprocess.run(['python', 'gen_django_secret.py'])
+    remove_file("gen_django_secret.py")
+

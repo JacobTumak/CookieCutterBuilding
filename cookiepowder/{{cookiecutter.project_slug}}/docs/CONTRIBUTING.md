@@ -128,7 +128,9 @@ Make sure all your changes are committed (including an entry in HISTORY.rst).
 Then run:
 
 ``` shell
-$ bump2version patch # possible: major / minor / patch
+
+[//]: # (TODO: change to bumpver)
+$ bump2version patch # possible: major / minor / patch  
 $ git push
 $ git push --tags
 ```
