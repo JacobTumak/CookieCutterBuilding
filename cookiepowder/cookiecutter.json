@@ -11,6 +11,8 @@
   "copyright_entity": "{{cookiecutter.full_name}}",
   "python_version": ">=3.8, <4.0",
   "intended_Audience":"Developers",
+  "generate_django_secret": "y",
+  "generate_requirements_files": "y",
   "use_pytest": "y",
   "use_pypi_deployment_with_travis": "y",
   "add_pyup_badge": "n",

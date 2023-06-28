@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel", "twine"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = '{{cookiecutter.project_name | replace(' ', '_')}}'
+name = '{{cookiecutter.project_slug}}'
 version = '{{cookiecutter.version}}'
 description = "{{ cookiecutter.project_short_description }}"
 readme = "README.md"
@@ -31,6 +31,11 @@ classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
     "License :: {% if cookiecutter.open_source_license != 'Not open source' -%} OSI Approved :: {% endif %} {{cookiecutter.open_source_license}}",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Framework :: Django",
 ]
 requires-python = '{{cookiecutter.python_version}}'
@@ -46,7 +51,6 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     'bumpver >= 2023.1124',
-    'twine >= 4.0.2', # TODO: Remove this from dev dependencies?
     'build >= 0.10.0',
     'flake8 >= 6.0.0',
     {% if cookiecutter.command_line_interface != 'No Cli'-%}'{{cookiecutter.command_line_interface}}',{% endif %}
@@ -64,13 +68,9 @@ test = [
 ]
 
 
-[project.urls] # TODO: Change Homepage to rtd?
+[project.urls]
 Homepage = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}'
 Repository = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}'
 
 [project.scripts]
 "manage.py" = "{{cookiecutter.project_slug}}:django_manage"
-
-[tool.flake8]
-
-
